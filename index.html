@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elevator Simulation</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="elevatorCanvas" width="600" height="400"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.1/socket.io.js"></script>
+    <script>
+        const canvas = document.getElementById('elevatorCanvas');
+        const ctx = canvas.getContext('2d');
+        const elevatorPositions = Array(5).fill(1);
+
+        // Socket.io Setup
+        const socket = io();
+
+        socket.on('elevatorUpdate', (data) => {
+            elevatorPositions[data.id - 1] = data.floor;
+            drawElevators();
+        });
+
+        function drawElevators() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'blue';
+            elevatorPositions.forEach((floor, index) => {
+                ctx.fillRect(50 * (index + 1), 50 * (10 - floor), 30, 30);
+            });
+        }
+
+        function requestElevator(floor) {
+            socket.emit('requestElevator', floor);
+        }
+
+        // Call drawElevators initially to draw the initial state
+        drawElevators();
+    </script>
+</body>
+</html>
