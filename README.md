@@ -5,5 +5,6 @@
 4. Fix incorrect Person floor position with the "Waiting" text, that must be a waiting person on specific floor, ready to pickup.
 5. Create loop 100x for elevators serve more people with random floor and random destination, the destination must different than the source floor
 6. Optimize the number of people served by elevator, e.g. move faster and smooth without removing the animation.
-7. Shorter time to serve is better.
+7. When serve finished, move back the elevator to 1st floor
+8. Shorter time to serve is better.
 
