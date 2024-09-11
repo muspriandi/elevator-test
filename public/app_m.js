@@ -5,9 +5,9 @@ const floorInput = document.getElementById('floorInput');
 const requestButton = document.getElementById('requestButton');
 
 const totalFloors = 50;
-const floorHeight = 14; // Each floor will have a height of 14px to fit 50 floors in the canvas
-const elevatorWidth = 10; // Smaller elevator width
-const elevatorHeight = 13; // Smaller elevator height to fit within the floor height
+const floorHeight = 14; 
+const elevatorWidth = 10;
+const elevatorHeight = 13;
 
 let elevators = [
   {
@@ -58,12 +58,8 @@ function drawElevator() {
     ctx.moveTo(110, yPosition)
     ctx.lineTo(110, yPosition+canvas.height)
     ctx.stroke();
-
-    //ctx.fillText('test', 115, yPosition + floorHeight - 1);
-    // ctx.stroke()
   }
 
-  // Draw elevator
   let gapBetween = 0;
 
   for (let idx = 0; idx < elevators.length; idx++) {
@@ -90,17 +86,16 @@ function animateElevator(idx, cb) {
   obj.state = 1;
 
   if (obj.currentFloor < obj.targetFloor) {
-    let gap = obj.targetFloor - obj.currentFloor; // 50 - 10 = 40
-    let inLinear = parseInt(obj.targetFloor / 5) // 50 / 5 = 10
+    let gap = obj.targetFloor - obj.currentFloor;
+    let inLinear = parseInt(obj.targetFloor / 5)
     if (gap < 5) {
-      // slower movement on near floor
-      obj.currentFloor += 0.1; // Speed of the elevator
+      obj.currentFloor += 0.1;
     } else if (obj.currentFloor === 0 && obj.currentFloor <= inLinear) {
       obj.currentFloor += 0.1
     } else if (obj.currentFloor > 0 && (obj.currentFloor - 5) < inLinear) {
       obj.currentFloor += 0.1;
     } else {
-      obj.currentFloor += 0.2; // Speed of the elevator
+      obj.currentFloor += 0.2;
     }
     if (obj.currentFloor > obj.targetFloor) obj.currentFloor = obj.targetFloor;
   } else if (obj.currentFloor > obj.targetFloor) {
@@ -108,17 +103,17 @@ function animateElevator(idx, cb) {
     if (obj.previousFloor > 0) {
       let inLinear = parseInt(obj.previousFloor/ 5)
       if (gap < 5) {
-        obj.currentFloor -= 0.1; // Speed of the elevator
+        obj.currentFloor -= 0.1;
       } else if (obj.currentFloor > parseInt(inLinear * 5)) {
         obj.currentFloor -= 0.1;
       } else {
-        obj.currentFloor -= 0.2; // Speed of the elevator
+        obj.currentFloor -= 0.2;
       }
     } else {
       if (gap < 5) {
-        obj.currentFloor -= 0.1; // Speed of the elevator
+        obj.currentFloor -= 0.1;
       } else {
-        obj.currentFloor -= 0.2; // Speed of the elevator
+        obj.currentFloor -= 0.2;
       }
     }
 
@@ -154,9 +149,9 @@ function updateDeliverCount(v) {
   document.getElementById("counter").innerHTML = deliveredCount;
 }
 
-drawElevator(0, 0); // Initial drawing
-drawElevator(1, 0); // Initial drawing
-drawElevator(2, 0); // Initial drawing
+drawElevator(0, 0);
+drawElevator(1, 0);
+drawElevator(2, 0);
 
 let elvParams1 = [];
 function setElevatorParams1() {
@@ -243,10 +238,8 @@ function mapCallIdxToElevator(idx) {
   }
 }
 
-// todo random
 function go(idx, man, cb) {
   const elv = elevators[idx];
-    // go to the man floor first
     elv.targetFloor = man.from - 1;
     mapSetIdxToElevator(idx, [function(elv) {
 
