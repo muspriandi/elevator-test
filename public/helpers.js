@@ -3,24 +3,24 @@ function getDaysInMonth(month,year) {
     var currmon = new Date(year,month),     
         nextmon = new Date(year,month+1);
     return Math.floor((nextmon.getTime()-currmon.getTime())/(24*3600*1000));
-} 
+}
 function getDateTimeSince(target) { // target should be a Date object
     var now = new Date(), diff, yd, md, dd, hd, nd, sd, out = [];
-    diff = Math.floor(now.getTime()-target.getTime()/1000);
-    yd = target.getFullYear()-now.getFullYear();
-    md = target.getMonth()-now.getMonth();
-    dd = target.getDate()-now.getDate();
-    hd = target.getHours()-now.getHours();
-    nd = target.getMinutes()-now.getMinutes();
-    sd = target.getSeconds()-now.getSeconds();
+    diff = Math.floor((now.getTime()-target.getTime())/1000);
+    yd = now.getFullYear()-target.getFullYear();
+    md = now.getMonth()-target.getMonth();
+    dd = now.getDate()-target.getDate();
+    hd = now.getHours()-target.getHours();
+    nd = now.getMinutes()-target.getMinutes();
+    sd = now.getSeconds()-target.getSeconds();
     if( md < 0) {yd--; md += 12;}
     if( dd < 0) {
         md--;
-        dd += getDaysInMonth(now.getMonth()-1,now.getFullYear());
+        dd += getDaysInMonth(now.getMonth(),now.getFullYear());
     }
     if( hd < 0) {dd--; hd += 24;}
-    if( md < 0) {hd--; md += 60;}
-    if( sd < 0) {md--; sd += 60;}
+    if( nd < 0) {hd--; nd += 60;}
+    if( sd < 0) {nd--; sd += 60;}
 
     if( yd > 0) out.push( yd+" year"+(yd == 1 ? "" : "s"));
     if( md > 0) out.push( md+" month"+(md == 1 ? "" : "s"));
